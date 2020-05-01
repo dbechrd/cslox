@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cslox", "cslox.csproj", "{1BEDE409-298D-4BA9-AB29-2D26326F6697}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BEDE409-298D-4BA9-AB29-2D26326F6697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEDE409-298D-4BA9-AB29-2D26326F6697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEDE409-298D-4BA9-AB29-2D26326F6697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEDE409-298D-4BA9-AB29-2D26326F6697}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48B8889C-4E8C-49EF-A469-55E9D6D0CEF6}
+	EndGlobalSection
+EndGlobal
