@@ -38,6 +38,7 @@ namespace cslox
             }
             catch (ParseError error)
             {
+                error.GetType();
                 // TODO: Handle this better (statements?)
                 return null;
             }

@@ -38,8 +38,10 @@
   <ItemGroup>
     <Compile Include="AstPrinter.cs" />
     <Compile Include="Expr.cs" />
+    <Compile Include="Interpreter.cs" />
     <Compile Include="Lox.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="RuntimeError.cs" />
     <Compile Include="Scanner.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>

@@ -9,7 +9,9 @@ namespace cslox
 {
     public static class Lox
     {
+        static Interpreter interpreter = new Interpreter();
         static bool ErrorFlag = false;
+        static bool RuntimeErrorFlag = false;
 
         static int Main(string[] args)
         {
@@ -44,7 +46,19 @@ namespace cslox
         static int RunFile(string script)
         {
             string text = File.ReadAllText(script);
-            return Run(text);
+            Run(text);
+
+            if (ErrorFlag)
+            {
+                // Syntax error
+                return (int)ErrorCode.EX_DATAERR;
+            }
+            else if (RuntimeErrorFlag)
+            {
+                // Runtime error
+                return (int)ErrorCode.EX_SOFTWARE;
+            }
+            return (int)ErrorCode.SUCCESS;
         }
 
         static int RunPrompt()
@@ -57,18 +71,20 @@ namespace cslox
                 {
                     break;
                 }
+
+                ErrorFlag = false;
+                RuntimeErrorFlag = false;
                 Run(text);
             }
             return 0;
         }
 
-        static int Run(string source)
+        static void Run(string source)
         {
-            ErrorFlag = false;
-
             Scanner scanner = new Scanner(source);
             List<Token> tokens = scanner.ScanTokens();
 
+#if false
             // DEBUG: Print tokens
             Console.WriteLine("\nTokens:");
             Console.WriteLine("-------");
@@ -76,24 +92,27 @@ namespace cslox
             {
                 Console.WriteLine(token);
             }
+#endif
 
             Parser parser = new Parser(tokens);
-            Expr expression = parser.Parse();
+            Expr expr = parser.Parse();
 
             // Syntax error
             if (ErrorFlag)
             {
-                return (int)ErrorCode.EX_DATAERR;
+                return;
             }
 
+#if false
             // DEBUG: Print AST
             Console.WriteLine("\nAST:");
             Console.WriteLine("-------");
             AstPrinter printer = new AstPrinter();
-            Console.WriteLine(printer.Print(expression));
+            Console.WriteLine(printer.Print(expr));
             Console.WriteLine();
+#endif
 
-            return 0;
+            interpreter.Interpret(expr);
         }
 
         public static void Error(int line, int column, string message)
@@ -113,10 +132,16 @@ namespace cslox
             }
         }
 
+        public static void RuntimeError(RuntimeError error)
+        {
+            Console.WriteLine($"{error.Message}\n[line {error.token.line}]");
+            RuntimeErrorFlag = true;
+        }
+
         private static void ReportError(int line, int column, string where, string message)
         {
             Console.WriteLine($"[line {line}:column {column}] Error {where}: {message}");
-            Lox.ErrorFlag = true;
+            ErrorFlag = true;
         }
 
         enum ErrorCode
